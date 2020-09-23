@@ -1,7 +1,7 @@
 class Referee:
-"""
-TODO: add Docstring for the Referee class
-"""
+    """
+    TODO: add Docstring for the Referee class
+    """
 
     def __init__(self):
         pass

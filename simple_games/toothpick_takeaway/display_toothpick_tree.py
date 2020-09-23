@@ -25,7 +25,7 @@ def display_turn_tree(cards_left, player, cards_taken, turn):
 
     # Else, increase the turn counter and change the player
     turn += 1
-    next_player = 1 if player % 2 == 0 else 2
+    next_player = ((player) % 2) + 1
 
     # Recurse if player takes 1 card
     display_turn_tree(cards_left - 1, next_player, 1, turn)

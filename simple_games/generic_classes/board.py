@@ -1,7 +1,8 @@
 class Board:
-"""
-todo: Add a docstring for the Board class. 
-"""
+    """
+    todo: Add a docstring for the Board class.
+    """
+
     def __init__(self):
         self.move_set = []
         self.state = None

@@ -1,5 +1,9 @@
 # Two-Player Games
 
+Faculty Advisor: Dr. Andrew Penland
+
+Authors: Nicholas O'Kelley, Daniel Hammer, Andrew Shelton
+
 ## Introduction
 
 The first kind of two-player games we will consider work like this:

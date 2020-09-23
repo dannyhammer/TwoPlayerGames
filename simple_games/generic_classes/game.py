@@ -2,29 +2,44 @@ import referee
 import player
 import board
 
+##
+# This implements a Game that takes a list/set of players, a referee, and a
+# board. It automates the process of playing the game, and returns a winner.
+#
+# Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Shelton
+#
+# Date: Sep 22, 2020
+##
+
 
 class Game:
-    """
-    This implements a Game that takes a list/set of players, a referee, and a board.
-    It automates the process of playing the game, and returns a winner.
-
-    TODO: Finish Docstring for methods and other attributes.
-    """
-
     def __init__(self):
-        self.referee = Referee()
-        self.board = Board()
-        self.players = [Player(1), Player(2)]
+        """The game constructor declares a new board, referee, and two
+        players.
+
+        Args:
+            referee : the current game referee
+            board : the game board
+            first : the first player
+
+        """
+        self.referee = referee.Referee()
+        self.board = board.Board()
+        self.players = [player.Player(1), player.Player(2)]
 
 
 # TODO: initialize
 # should take as input a board, a player_list, a referee, and a first player
 # if no first player given, make it be the first player in the list.
 
-
     def play(self):
-        """
-        TODO: Docstring
+        """ This function allows for the game to be played.
+
+        Args:
+            None
+
+        Return:
+            None
         """
         game_over = False
         while(not(game_over)):

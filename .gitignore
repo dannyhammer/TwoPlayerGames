@@ -1,0 +1,5 @@
+*.png
+*.tbz
+*.svg
+**/.ipynb_checkpoints
+**/__pycache__

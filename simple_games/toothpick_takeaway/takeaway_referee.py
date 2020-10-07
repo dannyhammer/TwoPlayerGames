@@ -2,9 +2,12 @@
 # This class models a Referee for the toothpick takeaway game.
 #
 # Authors: Daniel Hammer, Nihcolas O'Kelley, Andrew Shelton
-
 #
 ##
+
+import sys
+sys.path.append("../generic_classes")
+from referee import Referee
 
 class takeaway_referee(Referee):
     """The toothpick takeaway referee subclass."""

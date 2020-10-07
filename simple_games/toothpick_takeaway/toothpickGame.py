@@ -1,6 +1,8 @@
 ###
 # TOOTHPICK TAKEAWAY
 ###
+
+
 ###
 #game skeleton
 
@@ -21,6 +23,8 @@
 # player(int) = (1,2) the player to recieve the strat if only one will recieve it
 
 ###
+
+
 # CODE
 import Player as P
 #the default number of sticks to play the game with
@@ -29,19 +33,18 @@ DEFAULT = 10
 def run_games(int):
     for x in int:
         play_game(3)
+
 def play_game(type, strat = 0):
     """
     type(int): a 1,2,3 for what type of game to play
     strat
     """
-    game_two_human()
-    game_one_human()
-    game_no_human(strat, player)
-
-def swap_turn(p1, p2):
-    p1.change_turn()
-    p2.change_turn()
-
+    if(type == 1):
+        game_two_human()
+    elif(type == 2):
+        game_one_human()
+    elif(type == 3):
+        game_no_human(strat, player)
 
 def game_two_human(p1,p2):
     """
@@ -59,13 +62,13 @@ def game_two_human(p1,p2):
         if(p1.get_turn()):
             num_sticks -= p1.human_move(num_sticks)
             if(num_sticks == 0 ):
-                return("Player 1 Wins, Thank you for playing")
+                return p1
             p1.changeturn()
             p2.changeturn()
         else:
             num_sticks -= p2.human_move(num_sticks)
             if(num_sticks == 0 ):
-                return("Player 2 Wins, Thank you for playing")
+                return p2
             p2.changeturn()
             p1.changeturn()
 
@@ -87,8 +90,10 @@ def game_one_human(p1,p2,strat):
     """
     num_stick = DEFAULT
     while(num_sticks > 0):
+
         #human player 1
         if(p1.get_type == "h"):
+
             #human player 1 turn
             if(p1.get_turn()):
                 num_sticks -= p1.human_move(num_sticks)
@@ -96,8 +101,10 @@ def game_one_human(p1,p2,strat):
                     return("Player 1 Wins, Thank you for playing")
                 p1.changeturn()
                 p2.changeturn()
+
             #cpu player 2 turn
             else:
+
                 #no strat
                 if(strat == False):
                         num_sticks -= p2.human_move(num_sticks)
@@ -105,6 +112,7 @@ def game_one_human(p1,p2,strat):
                             return("Player 2 Wins, Thank you for playing")
                         p2.changeturn()
                         p1.changeturn()
+
                 #with strat
                 else:
 
@@ -113,8 +121,10 @@ def game_one_human(p1,p2,strat):
                             return("Player 2 Wins, Thank you for playing")
                         p2.changeturn()
                         p1.changeturn()
+
         #cpu player 1
         else:
+
             #no strat
             if(strat == False):
                 if(p1.get_turn()):
@@ -123,12 +133,15 @@ def game_one_human(p1,p2,strat):
                         return("Player 1 Wins, Thank you for playing")
                     p1.changeturn()
                     p2.changeturn()
+
+                #human player 2
                 else:
                     num_sticks -= p2.human_move(num_sticks)
                     if(num_sticks == 0 ):
                         return("Player 2 Wins, Thank you for playing")
                     p2.changeturn()
                     p1.changeturn()
+
             #with strat
             else:
                 if(p1.get_turn()):
@@ -137,6 +150,8 @@ def game_one_human(p1,p2,strat):
                         return("Player 1 Wins, Thank you for playing")
                     p1.changeturn()
                     p2.changeturn()
+
+                #human player 2
                 else:
                     num_sticks -= p2.human_move(num_sticks)
                     if(num_sticks == 0 ):
@@ -146,6 +161,134 @@ def game_one_human(p1,p2,strat):
 
 
 
+####
+# strat codes :
+#   0 - no strat
+#   1 - P1 strat
+#   2 - p2 strat
+#   3 - both strat
+###
+def game_no_human(p1, p2, strat = 0):
+    """
+    This function models the game between two cpu players
 
-#def game_no_human():
+    Args:
+    p1(Player object): a player
+    p2(Player object): the other player
+    strat(Int): Determines who has strategy in this game
 
+    Returns:
+    winner: The player object who won
+    """
+
+#NO STRAT
+    if(strat == 0):
+        while(num_sticks >= 0):
+            if(p1.get_turn()):
+
+                num_sticks -= p1.comp_move_rand(num_sticks)
+                if(num_sticks == 0):
+                    return p1
+                p2.changeturn()
+                p1.changeturn()
+
+            else:
+                num_sticks -= p2.comp_move_rand(num_sticks)
+                if(num_sticks == 0):
+                    return p2
+                p2.changeturn()
+                p1.changeturn()
+
+    #P1 STRAT
+    if(strat == 1):
+        while(num_sticks >= 0):
+            if(p1.get_turn()):
+                num_sticks -= p1.comp_move_strat(num_sticks)
+                if(num_sticks == 0):
+                    return p1
+                p2.changeturn()
+                p1.changeturn()
+
+            else:
+                num_sticks -= p2.comp_move_rand(num_sticks)
+                if(num_sticks == 0):
+                    return p2
+                p2.changeturn()
+                p1.changeturn()
+
+    #P2 STRAT
+    if(strat == 2):
+        while(num_sticks >= 0):
+            if(p1.get_turn()):
+                num_sticks -= p1.comp_move_strat(num_sticks)
+                if(num_sticks == 0):
+                    return p1
+                p2.changeturn()
+                p1.changeturn()
+
+            else:
+                num_sticks -= p2.comp_move_strat(num_sticks)
+                if(num_sticks == 0):
+                    return p2
+                p2.changeturn()
+                p1.changeturn()
+
+    #BOTH STRAT
+    if(strat == 3):
+        while(num_sticks >= 0):
+            if(p1.get_turn()):
+                num_sticks -= p1.comp_move_strat(num_sticks)
+                if(num_sticks == 0):
+                    return p1
+                p2.changeturn()
+                p1.changeturn()
+
+            else:
+                num_sticks -= p2.comp_move_strat(num_sticks)
+                if(num_sticks == 0):
+                    return p1
+                p2.changeturn()
+                p1.changeturn()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#whitespace for ez read

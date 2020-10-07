@@ -9,7 +9,7 @@ import sys
 sys.path.append("../generic_classes")
 from referee import Referee
 
-class takeaway_referee(Referee):
+class TakeawayReferee(Referee):
     """The toothpick takeaway referee subclass."""
 
     def __init__(self):

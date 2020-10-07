@@ -1,11 +1,13 @@
 ##
-# This class models a Referee for a game.
+# This class models a Referee for the toothpick takeaway game.
 #
-# Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Shelton
+# Authors: Daniel Hammer, Nihcolas O'Kelley, Andrew Shelton
+
 #
-# Date: Sep 22, 2020
 ##
-class Referee:
+
+class takeaway_referee(Referee):
+    """The toothpick takeaway referee subclass."""
 
     def __init__(self):
         """ This class models a referee for a game.
@@ -13,7 +15,7 @@ class Referee:
             none
 
         """
-        self.is_game_over = False
+        Referee.__init__(self)
 
     def update_board(self, board, player, other_player) -> object:
         """ This method will handle updating the game board.
@@ -92,5 +94,18 @@ class Referee:
 
         Return:
             boolean : True or False depending on the move validity
+        """
+        pass
+
+    def is_winning(self, board, move) -> bool:
+        """A method to check if the current player is winning at a given 
+        instance of the game.
+
+        Args:
+            board : the game board
+            move : the current move
+
+        Return:
+            True or False based on the 'win condition'
         """
         pass

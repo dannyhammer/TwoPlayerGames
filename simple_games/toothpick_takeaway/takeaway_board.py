@@ -30,3 +30,23 @@ class TakeawayBoard:
             none
         """
         pass
+
+    def possible_moves(self):
+        """ Returns a list of all possible moves given the current game state
+
+        Args:
+            none
+
+        Returns:
+            A list of all possible moves
+        """
+
+        available_moves = []
+        if self.state == 0:
+            available_moves.append(0)
+        elif self.state == 1:
+            available_moves.append(1)
+        else:
+            available_moves.extend([1, 2])
+
+        return available_moves

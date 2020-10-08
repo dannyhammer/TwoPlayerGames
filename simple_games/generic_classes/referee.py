@@ -7,13 +7,14 @@
 ##
 class Referee:
 
-    def __init__(self):
+    def __init__(self, board):
         """ This class models a referee for a game.
         Args:
-            none
+            board : The board of the game being played``
 
         """
         self.is_game_over = False
+        self.board = board
 
     def update_board(self, board, player, other_player) -> object:
         """ This method will handle updating the game board.
@@ -47,40 +48,51 @@ class Referee:
 
         return winning_player
 
-    def ask_for_move(self, board, player) -> str:
+    def ask_for_move(self, board, player, opponent):
         """ This method takes in the board and current player and prompts for
         the next move.
 
-        Then returns the move.
+        Then returns the move and a winner if found
 
         Args:
             board : the game board
-            player : player that is being prompted
+            player : player whose turn it is
+            opponent: player whose turn it is not
 
         Return:
+            The winning player, if applicable
             The players move
         """
-        # Gather all the moves left
-        available_moves = board.possible_moves()
+        previous_moves_tried = [] #to check for repeats
+        is_turn_over = False
+        winner = None
 
-        available_moves_as_str = list(map(str, board.possible_moves()))
+        while not is_turn_over:
+            #see what move the player would want to make.
+            proposed_move = player.move(board)
 
-        while True:
-            player_move = input("Enter your move >").rstrip()
+            #check to see if player has given up
+            if (proposed_move in previous_moves_tried) or (proposed_move is None): 
+                winner = opponent
+                is_turn_over = True
+                proposed_move = None
 
-            if player_move == 'show moves':
-                print("Available Moves: " + "\n".join(
-                    ["#%d: %s" % (i+1, m)
-                     for i, m in enumerate(available_moves)]
-                ) + "\n")
+            #no change in is_turn_over, so we should re-enter the while loop
+            elif not self.is_legal(self.board.state, proposed_move):
+                previous_moves_tried.append(proposed_move)
 
-            elif player_move == 'quit':
-                player_move = "Quit"
-                raise KeyboardInterrupt
+            #check to see if player won
+            elif self.is_winning(board, proposed_move):
+                winner = player
+                is_turn_over = True
 
-            elif str(player_move) in available_moves_as_str:
-                return [available_moves[available_moves_as_str.index(str(player_move))]]
-        return player_move
+            #in this case the move is legal and not winning
+            else:
+                winner = None
+                is_turn_over = True
+
+        return winner, proposed_move
+
 
     def is_legal(self, board_state, move) -> bool:
         """ This function allows for the referee object to check if a move is
@@ -92,5 +104,19 @@ class Referee:
 
         Return:
             boolean : True or False depending on the move validity
+        """
+        pass
+
+
+    def is_winning(self, board, move) -> bool:
+        """A method to check if the current player is winning at a given 
+        instance of the game.
+
+        Args:
+            board : the game board
+            move : the current move
+
+        Return:
+            True or False based on the 'win condition'
         """
         pass

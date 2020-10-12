@@ -7,7 +7,8 @@
 ##
 class Referee:
 
-    def __init__(self, board):
+    def __init__(self, board, legal_function = lambda x: pass, 
+                 winning_function = lambda x: pass):
         """ This class models a referee for a game.
         Args:
             board : The board of the game being played``
@@ -15,6 +16,8 @@ class Referee:
         """
         self.is_game_over = False
         self.board = board
+        self.is_legal = legal_function
+        self.is_winning = winning_function
 
     def update_board(self, board, player, other_player) -> object:
         """ This method will handle updating the game board.
@@ -92,31 +95,3 @@ class Referee:
                 is_turn_over = True
 
         return winner, proposed_move
-
-
-    def is_legal(self, board_state, move) -> bool:
-        """ This function allows for the referee object to check if a move is
-        valid.
-
-        Args:
-            board_state : the state of the board
-            move  : the current move being made 
-
-        Return:
-            boolean : True or False depending on the move validity
-        """
-        pass
-
-
-    def is_winning(self, board, move) -> bool:
-        """A method to check if the current player is winning at a given 
-        instance of the game.
-
-        Args:
-            board : the game board
-            move : the current move
-
-        Return:
-            True or False based on the 'win condition'
-        """
-        pass

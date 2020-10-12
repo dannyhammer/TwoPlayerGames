@@ -1,7 +1,7 @@
 ##
 # This class models a Referee for a game.
 #
-# Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Shelton
+# Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Penland, Andrew Shelton
 #
 # Date: Sep 22, 2020
 ##

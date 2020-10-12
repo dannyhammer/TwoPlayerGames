@@ -31,6 +31,7 @@ class TakeawayBoard:
             none
         """
         self.history.append(move)
+        return None
 
     def possible_moves(self):
         """ Returns a list of all possible moves given the current game state

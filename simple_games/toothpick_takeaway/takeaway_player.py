@@ -10,7 +10,7 @@ import random
 
 class TakeawayPlayer:
 
-    def __init__(self, player_num = 1, is_human = False, strategy = None):
+    def __init__(self, strategy = None, player_name):
         """ The player constructor
 
         Args:
@@ -20,8 +20,7 @@ class TakeawayPlayer:
         Return:
             None 
         """
-        self.player_num = player_num
-        self.is_human = is_human
+        self.player_name = player_name
         self.strategy = strategy
 
     def move(self, board):
@@ -35,15 +34,6 @@ class TakeawayPlayer:
             string : the move made (take 1 or 2 toothpicks)
         """
 
-        move = None
-
-        if self.is_human:
-            # Human-in-the-loop
-            move = int(input("Enter your move > ").strip())
-
-        else:
-            # Automatic moves, randomly determined
-            if self.strategy == None:
-                move = random.randint(1, 2)
+        move = strategy(board)
 
         return move

@@ -29,4 +29,4 @@ class Player:
         Return:
             The move made.
         """
-        pass
+        return self.strategy(board)

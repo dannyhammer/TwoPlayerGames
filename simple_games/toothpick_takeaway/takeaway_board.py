@@ -18,8 +18,9 @@ class TakeawayBoard:
         """
         self.move_set = []
         self.state = num_toothpicks
+        self.history = []
 
-    def update(self):
+    def update(self, move):
         """ This function updates the board information once a player has 
         made a move.
 
@@ -29,7 +30,7 @@ class TakeawayBoard:
         Return:
             none
         """
-        pass
+        self.history.append(move)
 
     def possible_moves(self):
         """ Returns a list of all possible moves given the current game state

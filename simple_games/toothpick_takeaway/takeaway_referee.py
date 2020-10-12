@@ -34,6 +34,7 @@ class TakeawayReferee(Referee):
         """
 
         board.state -= move
+        board.update(move)
         return board
 
 

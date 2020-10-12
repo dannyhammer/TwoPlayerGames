@@ -6,8 +6,6 @@
 # Date: Oct 7, 2020
 ##
 
-import random
-
 class TakeawayPlayer:
 
     def __init__(self, strategy = None, player_name):

@@ -1,41 +1,97 @@
 ##
-# This class models a Referee for the toothpick takeaway game.
+# This class models a Referee for a game.
 #
-# Authors: Daniel Hammer, Nihcolas O'Kelley, Andrew Shelton
+# Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Shelton
 #
-# Date: Oct 7, 2020
+# Date: Sep 22, 2020
 ##
-
-import sys
-sys.path.append("../generic_classes")
-from referee import Referee
-
-class TakeawayReferee(Referee):
-    """The toothpick takeaway referee subclass."""
+class Referee:
 
     def __init__(self, board):
         """ This class models a referee for a game.
         Args:
-            none
+            board : The board of the game being played``
 
         """
-        Referee.__init__(self, board)
+        self.is_game_over = False
+        self.board = board
 
-    def update_board(self, move, board) -> object:
+    def update_board(self, board, player, other_player) -> object:
         """ This method will handle updating the game board.
 
         Args:
-            player : the current player making the move
             board : the game board
-            move ; the move being made
+            player : the current player making the move
+            other_player : the player not making the move
 
         Return:
-            The updated game board
-        """
+            The winning_player or None depending on the move update
 
-        board.state -= move
-        board.update(move)
-        return board
+        """
+        current_move = self.ask_for_move(board, player)
+        prev_move_list = []
+        is_turn_over = False
+        winning_player = None
+
+        while not is_turn_over:
+            current_move = player.move(board)
+
+            # check to see if player has given up
+            if current_move in prev_move_list or current_move is None:
+                is_turn_over = True
+                self.is_game_over = True
+                winning_player = other_player
+
+            elif not(self.is_legal(board, current_move)):
+                prev_move_list.append(current_move)
+                #is_turn_over = True
+
+        return winning_player
+
+    def ask_for_move(self, board, player, opponent):
+        """ This method takes in the board and current player and prompts for
+        the next move.
+
+        Then returns the move and a winner if found
+
+        Args:
+            board : the game board
+            player : player whose turn it is
+            opponent: player whose turn it is not
+
+        Return:
+            The winning player, if applicable
+            The players move
+        """
+        previous_moves_tried = [] #to check for repeats
+        is_turn_over = False
+        winner = None
+
+        while not is_turn_over:
+            #see what move the player would want to make.
+            proposed_move = player.move(board)
+
+            #check to see if player has given up
+            if (proposed_move in previous_moves_tried) or (proposed_move is None): 
+                winner = opponent
+                is_turn_over = True
+                proposed_move = None
+
+            #no change in is_turn_over, so we should re-enter the while loop
+            elif not self.is_legal(self.board.state, proposed_move):
+                previous_moves_tried.append(proposed_move)
+
+            #check to see if player won
+            elif self.is_winning(board, proposed_move):
+                winner = player
+                is_turn_over = True
+
+            #in this case the move is legal and not winning
+            else:
+                winner = None
+                is_turn_over = True
+
+        return winner, proposed_move
 
 
     def is_legal(self, board_state, move) -> bool:
@@ -49,9 +105,8 @@ class TakeawayReferee(Referee):
         Return:
             boolean : True or False depending on the move validity
         """
-        is_within_range = move > 0 and move < 3
-        is_not_too_many = board_state - move > -1
-        return is_within_range and is_not_too_many
+        return ((move > 0) and (move < 3) and (board_state - move >= 0))
+
 
     def is_winning(self, board, move) -> bool:
         """A method to check if the current player is winning at a given 
@@ -64,6 +119,4 @@ class TakeawayReferee(Referee):
         Return:
             True or False based on the 'win condition'
         """
-
-        # If the move depletes the number of toothpicks left to 0, it is winning
-        return board.state - move == 0
+        return (board.state - move) == 0

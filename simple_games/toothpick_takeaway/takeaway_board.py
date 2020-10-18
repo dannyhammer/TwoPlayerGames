@@ -5,6 +5,7 @@
 #
 # Date: Oct 7, 2020
 ##
+
 class TakeawayBoard:
 
     def __init__(self, num_toothpicks = 10):
@@ -16,21 +17,21 @@ class TakeawayBoard:
         Return:
             None
         """
-        self.move_set = []
         self.state = num_toothpicks
-        self.history = []
+        self.num_toothpicks = num_toothpicks
+        self.move_history = {}
 
-    def update(self, move):
+    def update(self, player, player_move):
         """ This function updates the board information once a player has 
         made a move.
 
         Args:
-            none
+            player_move (move): A player's move
 
         Return:
-            none
+            None (side effect is to update history)
         """
-        self.history.append(move)
+        self.move_history[self.state] = ()
         return None
 
     def possible_moves(self):
@@ -52,3 +53,8 @@ class TakeawayBoard:
             available_moves.extend([1, 2])
 
         return available_moves
+    
+    def reset(self):
+        self.state = self.num_toothpicks
+        self.move_history = {}
+        

@@ -8,7 +8,7 @@
 
 class TakeawayPlayer:
 
-    def __init__(self, strategy = None, player_name):
+    def __init__(self, player_name, strategy = None):
         """ The player constructor
 
         Args:
@@ -32,6 +32,6 @@ class TakeawayPlayer:
             string : the move made (take 1 or 2 toothpicks)
         """
 
-        move = strategy(board)
+        move = self.strategy(board)
 
         return move

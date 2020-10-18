@@ -5,7 +5,7 @@
 #
 # Date: Sep 22, 2020
 ##
-class Referee:
+class TakeawayReferee:
 
     def __init__(self, board):
         """ This class models a referee for a game.
@@ -28,25 +28,14 @@ class Referee:
             The winning_player or None depending on the move update
 
         """
-        current_move = self.ask_for_move(board, player)
-        prev_move_list = []
-        is_turn_over = False
-        winning_player = None
+        winning_player, current_move = self.ask_for_move(board, player, other_player)
+        board.move_history[board.state] = {"name": player.player_name,
+                                               "move":current_move }
+        if (winning_player is None):
+            board.state = board.state - current_move
 
-        while not is_turn_over:
-            current_move = player.move(board)
 
-            # check to see if player has given up
-            if current_move in prev_move_list or current_move is None:
-                is_turn_over = True
-                self.is_game_over = True
-                winning_player = other_player
-
-            elif not(self.is_legal(board, current_move)):
-                prev_move_list.append(current_move)
-                #is_turn_over = True
-
-        return winning_player
+        return winning_player, current_move
 
     def ask_for_move(self, board, player, opponent):
         """ This method takes in the board and current player and prompts for
@@ -78,7 +67,7 @@ class Referee:
                 proposed_move = None
 
             #no change in is_turn_over, so we should re-enter the while loop
-            elif not self.is_legal(self.board.state, proposed_move):
+            elif not self.is_legal(board, proposed_move):
                 previous_moves_tried.append(proposed_move)
 
             #check to see if player won
@@ -94,18 +83,18 @@ class Referee:
         return winner, proposed_move
 
 
-    def is_legal(self, board_state, move) -> bool:
+    def is_legal(self, board, move) -> bool:
         """ This function allows for the referee object to check if a move is
         valid.
 
         Args:
-            board_state : the state of the board
+            board : the current board
             move  : the current move being made 
 
         Return:
             boolean : True or False depending on the move validity
         """
-        return ((move > 0) and (move < 3) and (board_state - move >= 0))
+        return ((move > 0) and (move < 3) and (board.state - move >= 0))
 
 
     def is_winning(self, board, move) -> bool:

@@ -1,22 +1,22 @@
 ##
 # This class models a player for the Toothpick Takeaway game.
 #
-# Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Shelton
+# Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Penland, Andrew Shelton
 #
 # Date: Oct 7, 2020
 ##
 
 class TakeawayPlayer:
 
-    def __init__(self, player_name, strategy = None):
+    def __init__(self, player_name, strategy = lambda x: None):
         """ The player constructor
 
         Args:
-            player_num : The player number in the game
-            is_human : Whether or not the player is human-controlled
+            player_num : the player number in the game
+            is_human : whether or not the player is human-controlled
 
         Return:
-            None 
+            None
         """
         self.player_name = player_name
         self.strategy = strategy
@@ -26,10 +26,10 @@ class TakeawayPlayer:
         a choice on the next move.
 
         Args:
-            board : the board with the tooth picks
+            board : the board to move on
 
         Return:
-            string : the move made (take 1 or 2 toothpicks)
+            The move made (take 1 or 2 toothpicks)
         """
 
         move = self.strategy(board)

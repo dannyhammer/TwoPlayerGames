@@ -10,7 +10,7 @@
 
 
 class TakeawayGame:
-    
+
     def __init__(self, board = None, referee = None, players = None):
         """ The game constructor declares a new board, referee, and two
         players.
@@ -25,7 +25,7 @@ class TakeawayGame:
         self.board = board
         self.players = players
 
-    def play_game(self,narrated = False):
+    def play(self,narrated = False):
         """ This function allows for the game to be played.
 
         Args:
@@ -38,20 +38,18 @@ class TakeawayGame:
         turn = 0
         winner = None
         game_on = True
-        
-        while (game_on):
-            current_player = self.players[turn%2]
-            current_opponent = self.players[(turn + 1)%2]
+
+        while game_on:
+            current_player = self.players[turn % 2]
+            current_opponent = self.players[(turn + 1) % 2]
             turn = turn + 1
-            winner, current_move = self.referee.update_board(board = self.board, player = current_player, other_player = current_opponent)
+
+            winner, current_move = self.referee.update_board(board = self.board, player = current_player, opponent = current_opponent)
             game_on = (winner is None)
-            
+
             if (narrated):
                 print(current_player.player_name, "drew", 
                           current_move, "toothpicks")
                 print(self.board.state, "toothpicks left")
 
-                    
         return winner, self.board.move_history
-
-

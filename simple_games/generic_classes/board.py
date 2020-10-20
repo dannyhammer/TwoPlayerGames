@@ -7,7 +7,7 @@
 ##
 class Board:
 
-    def __init__(self):
+    def __init__(self, initial_state = None):
         """ The board constructor initializes the current move set and game 
         state.
 
@@ -16,17 +16,8 @@ class Board:
         Return:
             None
         """
-        self.move_set = []
-        self.state = None
+        self.initial_state = initial_state
+        self.state = initial_state
+        
+        
 
-    def update(self):
-        """ This function updates the board information once a player has 
-        made a move.
-
-        Args:
-            none
-
-        Return:
-            none
-        """
-        pass

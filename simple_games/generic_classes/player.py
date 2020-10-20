@@ -1,13 +1,13 @@
 ##
 # This class models a player for a game.
 #
-# Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Shelton
+# Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Penland, Andrew Shelton
 #
 # Date: Sep 22, 2020
 ##
 class Player:
 
-    def __init__(self, player_num):
+    def __init__(self, strategy = lambda x: pass, player_name):
         """ The player constructor
 
         Args:
@@ -16,7 +16,8 @@ class Player:
         Return:
             None 
         """
-        self.player_num = player_num
+        self.player_name = player_name
+        self.strategy = strategy
 
     def move(self, board):
         """ This function takes in a board and then allows the player to make
@@ -28,4 +29,4 @@ class Player:
         Return:
             The move made.
         """
-        pass
+        return self.strategy(board)

@@ -1,7 +1,7 @@
 ##
 # This class models a game board for most two player games.
 #
-# Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Shelton
+# Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Penland, Andrew Shelton
 #
 # Date: Sep 22, 2020
 ##
@@ -12,12 +12,9 @@ class Board:
         state.
 
         Args:
-            None
+            initial_state : The initial game state
         Return:
-            None
+            A new and initialized Board instance
         """
         self.initial_state = initial_state
         self.state = initial_state
-        
-        
-

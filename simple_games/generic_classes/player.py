@@ -7,14 +7,15 @@
 ##
 class Player:
 
-    def __init__(self, strategy = lambda x: pass, player_name):
+    def __init__(self, strategy = lambda x: None, player_name = 0):
         """ The player constructor
 
         Args:
-            player_num : the player number in the game
+            strategy: a strategy function used by the player
+            player_name: the player's label
 
         Return:
-            None 
+            An initialized instance of a Player
         """
         self.player_name = player_name
         self.strategy = strategy

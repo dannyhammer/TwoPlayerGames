@@ -37,20 +37,12 @@ class Game:
         Return:
             winner (player_name): the name of the player who won the game 
         """
-        
-        current_player = players[0]
-        other_player = players[1]
-        winner = None 
-        
+
+        current_player = self.players[0]
+        other_player = self.players[1]
+        winner = None
+
         while(winner is None):
-            winner, proposed_move = self.referee.ask_for_move(self.game_board, 
-                                                                        self.current_player,
-                                                                        self.other_player)
-            current_board, current_player = self.referee.update(self.game_board,
-                                                                          self.current_player,
-                                                                          proposed_move)
-            
+            winner, proposed_move = self.game_referee.ask_for_move(self.game_board, current_player, other_player)
+            current_board, current_player = self.game_referee.update(self.game_board, current_player)
         return winner
-                                                                          
-        
-        

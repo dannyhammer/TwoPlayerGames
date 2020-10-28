@@ -7,8 +7,8 @@
 ##
 class Referee:
 
-    def __init__(self, board, legal_function = lambda x: pass, 
-                 winning_function = lambda x: pass):
+    def __init__(self, board, legal_function = lambda x: None,
+                 winning_function = lambda x: None):
         """ This class models a referee for a game.
         Args:
             board : The board of the game being played``
@@ -31,7 +31,7 @@ class Referee:
             The winning_player or None depending on the move update
 
         """
-        current_move = self.ask_for_move(board, player)
+        current_move = self.ask_for_move(board, player, None)
         prev_move_list = []
         is_turn_over = False
         winning_player = None

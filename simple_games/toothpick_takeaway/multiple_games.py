@@ -32,8 +32,8 @@ for board in board_sizes:
         game_data.append((winner.player_name, history))
 
 import pandas as pd
-games_df = pd.DataFrame(game_data)
-games_df.to_csv("Random_VV_AlwaysTakeOne.csv")
+games_df = pd.DataFrame(game_data,columns=['Winner', 'player_state_i'])
+games_df.to_csv("test.csv", index = False)
 
 # Display data
 #for game in game_data:

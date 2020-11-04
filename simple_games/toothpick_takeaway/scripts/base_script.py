@@ -1,5 +1,5 @@
 import sys, os
-sys.path.append(os.path.abspath("../"))
+sys.path.append(os.path.abspath("../classes/"))
 
 from takeaway_board import TakeawayBoard
 from takeaway_referee import TakeawayReferee
@@ -46,6 +46,12 @@ def run_game(num_games, board_sizes, p1_strat_name, p2_strat_name):
             winner, history = my_game.play(narrated = False)
             game_data.append((winner.player_name, history))
 
+    # Write to csv
     import pandas as pd
     games_df = pd.DataFrame(game_data)
-    games_df.to_csv("{}_{}_{}.csv".format(p1_strat_name, p2_strat_name, num_games))
+    filename = "{}_{}_{}.csv".format(p1_strat_name, p2_strat_name, num_games)
+    games_df.to_csv(filename)
+
+    # Move the file
+    import shutil
+    shutil.move(filename, "../data_files/{}".format(filename))

@@ -32,12 +32,36 @@ for board in board_sizes:
         game_data.append((winner.player_name, history))
 
 import pandas as pd
-games_df = pd.DataFrame(game_data,columns=['Winner', 'player_state_i'])
-games_df.to_csv("test.csv", index = False)
+import csv
+
+array = [["Winner", "toothpicks_left", "player_name_i", "move_state_i"]]
+
+with open('test.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    #writer.writerows(game_data)
+    #game_string = ""
+    for game in game_data:
+        array.append([])
+        winner, history = game
+        #array.append([winner])
+        for toothpicks, data in history.items():    
+            for name, move in data.items():
+                array.append([winner, toothpicks, data['name'], data['move']])
+                #game_string = game_string + str(winner) + "," + str(toothpicks) + ", " + str(data['name']) + ", " + str(data['move'])
+
+        #game_string = game_string + "\n"
+    writer.writerows(array)
+
+            
+
+
+
+#games_df = pd.DataFrame(game_data,columns=['Winner', 'player_state_i'])
+#games_df.to_csv("test.csv", index = False)
 
 # Display data
 #for game in game_data:
-    #winner, history = game
-    #print("\nWinning player is:", winner.player_name)
-    #for toothpicks, data in history.items():
+ #   winner, history = game
+  #  print("\nWinning player is:", winner)
+   # for toothpicks, data in history.items():
     #    print("Toothpicks left:", toothpicks, " | Data:", data)

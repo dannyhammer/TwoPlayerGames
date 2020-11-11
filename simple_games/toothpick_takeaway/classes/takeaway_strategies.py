@@ -69,3 +69,11 @@ def human(board):
         A user-entered move
     """
     return int(input("Please make your move > "))
+
+strategies = {"human": human,
+              "random": random_move,
+              "random_move": random_move,
+              "take_one": always_take_one,
+              "take_two": always_take_two,
+              "always_take_one": always_take_one,
+              "always_take_two": always_take_two}

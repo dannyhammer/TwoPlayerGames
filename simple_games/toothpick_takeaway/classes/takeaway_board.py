@@ -31,6 +31,7 @@ class TakeawayBoard:
         Return:
             None (side effect is to update history)
         """
+        #self.move_history += "{}, {}".format(player.player_num, player_move)
         self.move_history[self.state] = ()
         return None
 

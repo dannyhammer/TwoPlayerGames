@@ -1,3 +1,9 @@
+<<<<<<< Updated upstream
+=======
+import sys, os
+sys.path.append(os.path.abspath("../classes/"))
+
+>>>>>>> Stashed changes
 from takeaway_board import TakeawayBoard
 from takeaway_referee import TakeawayReferee
 from takeaway_game import TakeawayGame
@@ -30,6 +36,7 @@ for board in board_sizes:
         # Play the game
         winner, history = my_game.play(narrated = False)
         game_data.append((winner.player_name, history))
+<<<<<<< Updated upstream
 
 import pandas as pd
 games_df = pd.DataFrame(game_data)
@@ -41,3 +48,5 @@ games_df.to_csv("Random_VV_AlwaysTakeOne.csv")
     #print("\nWinning player is:", winner.player_name)
     #for toothpicks, data in history.items():
     #    print("Toothpicks left:", toothpicks, " | Data:", data)
+=======
+>>>>>>> Stashed changes

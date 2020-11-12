@@ -47,10 +47,9 @@ def run_game(num_games, board_sizes, p1_strat_name, p2_strat_name):
             game_data.append((winner.player_name, history))
 
     # Write to csv
-    import pandas as pd
-    games_df = pd.DataFrame(game_data)
+    from csv_writer import write_to_csv
     filename = "{}_{}_{}.csv".format(p1_strat_name, p2_strat_name, num_games)
-    games_df.to_csv(filename)
+    write_to_csv(game_data, filename)
 
     # Move the file
     import shutil

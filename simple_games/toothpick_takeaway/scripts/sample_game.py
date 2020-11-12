@@ -1,3 +1,6 @@
+import sys, os
+sys.path.append(os.path.abspath("../classes/"))
+
 from takeaway_board import TakeawayBoard
 from takeaway_referee import TakeawayReferee
 from takeaway_game import TakeawayGame
@@ -19,7 +22,7 @@ my_game = TakeawayGame(board = my_board,
                        players = [random_player_1, random_player_2])
 
 # Play the game
-winner, history = my_game.play(narrated = True)
+winner, history = my_game.play(narrated = False)
 
 # Display data
 print("\nWinning player is:", winner.player_name)

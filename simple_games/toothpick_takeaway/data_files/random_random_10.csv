@@ -1,0 +1,11 @@
+10,turn_10,9,turn_9,8,turn_8,7,turn_7,6,turn_6,5,turn_5,4,turn_4,3,turn_3,2,turn_2,1,turn_1,winner
+2,player_1,0,,2,player_2,0,,1,player_1,2,player_2,0,,1,player_1,1,player_2,1,player_1,player_1
+1,player_1,2,player_2,0,,2,player_1,0,,2,player_2,0,,2,player_1,0,,,player_2,player_1
+2,player_1,0,,1,player_2,2,player_1,0,,2,player_2,0,,2,player_1,0,,1,player_2,player_2
+1,player_1,1,player_2,1,player_1,2,player_2,0,,2,player_1,0,,1,player_2,2,player_1,0,,player_1
+2,player_1,0,,2,player_2,0,,2,player_1,0,,1,player_2,1,player_1,1,player_2,1,player_1,player_1
+2,player_1,0,,1,player_2,2,player_1,0,,1,player_2,2,player_1,0,,2,player_2,0,,player_2
+2,player_1,0,,1,player_2,1,player_1,2,player_2,0,,1,player_1,2,player_2,0,,,player_1,player_2
+2,player_1,0,,1,player_2,2,player_1,0,,2,player_2,0,,2,player_1,0,,1,player_2,player_2
+1,player_1,1,player_2,1,player_1,1,player_2,1,player_1,1,player_2,1,player_1,2,player_2,0,,,player_1,player_2
+2,player_1,0,,2,player_2,0,,1,player_1,1,player_2,1,player_1,2,player_2,0,,1,player_1,player_1

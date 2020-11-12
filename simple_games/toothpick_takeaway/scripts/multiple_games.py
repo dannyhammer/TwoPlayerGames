@@ -1,5 +1,14 @@
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+=======
+import sys, os
+sys.path.append(os.path.abspath("../classes/"))
+
+>>>>>>> Stashed changes
+=======
 import csv
 import pandas as pd
+>>>>>>> master
 from takeaway_board import TakeawayBoard
 from takeaway_referee import TakeawayReferee
 from takeaway_game import TakeawayGame
@@ -34,6 +43,7 @@ for board in board_sizes:
         # Play the game
         winner, history = my_game.play(narrated=False)
         game_data.append((winner.player_name, history))
+<<<<<<< Updated upstream
 
 
 def prep_data_for_csv(game_data, output_file):
@@ -64,8 +74,18 @@ prep_data_for_csv(game_data, "test.csv")
 #games_df.to_csv("test.csv", index = False)
 
 # Display data
+<<<<<<< HEAD
+#for game in game_data:
+    #winner, history = game
+    #print("\nWinning player is:", winner.player_name)
+    #for toothpicks, data in history.items():
+    #    print("Toothpicks left:", toothpicks, " | Data:", data)
+=======
+>>>>>>> Stashed changes
+=======
 # for game in game_data:
 #   winner, history = game
 #  print("\nWinning player is:", winner)
 # for toothpicks, data in history.items():
 #    print("Toothpicks left:", toothpicks, " | Data:", data)
+>>>>>>> master

@@ -14,6 +14,7 @@ run_game(num_games: int
 """
 
 #run_game(100, range(100), "random", "random")
+run_game(10, [10], "random", "random")
 
 #run_game(100, range(100), "take_one", "random")
 #run_game(100, range(100), "random", "take_one")

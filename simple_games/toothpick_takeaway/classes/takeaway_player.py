@@ -7,31 +7,28 @@
 ##
 
 class TakeawayPlayer:
+    def __init__(self, player_name, strategy):
+        """
+        Instantiates a new TakeawayPlayer object.
 
-    def __init__(self, player_name, strategy = lambda x: None):
-        """ The player constructor
+        Parameters:
+            player_name (string): Name of the player
+            strategy (function): Function to determine what move to make
 
-        Args:
-            player_num : the player number in the game
-            is_human : whether or not the player is human-controlled
-
-        Return:
-            None
+        Returns:
+            A newly instatiated TakeawayPlayer
         """
         self.player_name = player_name
         self.strategy = strategy
 
-    def move(self, board):
-        """ This function takes in a board and then allows the player to make
-        a choice on the next move.
-
-        Args:
-            board : the board to move on
-
-        Return:
-            The move made (take 1 or 2 toothpicks)
+    def move(self, board) -> int:
         """
+        Makes a move based on the player's strategy.
 
-        move = self.strategy(board)
+        Parameters:
+            board (TakeawayBoard): The board being played on
 
-        return move
+        Returns:
+            A move based on the player's strategy
+        """
+        return self.strategy.move(board)

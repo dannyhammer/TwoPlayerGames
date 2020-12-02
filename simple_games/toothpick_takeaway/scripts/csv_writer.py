@@ -1,28 +1,41 @@
+##
+# A function to write Toothpick Takeaway game data to a .csv file.
+#
+# Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Penland, Andrew Shelton
+#
+# Date: Nov 30, 2020
+##
+
+import csv
+
 def write_to_csv(game_data, filename):
+    """
+    Writes game data to a .csv file.
+
+    Parameters:
+        game_data (list): Data of each turn made in the game and the winner of that game
+        filename (string): Name of the file to write to
+    """
     # Get the total number of toothpicks at the start
-    start_val = max(game_data[0][1])
+    start_val = max(game_data[0].history.keys())
+
     # Make a descending list of all toothpicks left
     toothpicks_left = list(range(start_val, 0, -1))
 
-    # Create our headings
+    # Create our headings: Toothpicks left and turn
     headings = []
     for heading in toothpicks_left:
-        # Number of toothpicks left
         headings.append(heading)
-        # Whose turn it was when those toothpicks were taken
         headings.append("turn_{}".format(heading))
-    # Append the winner column
     headings.append("winner")
 
     # Start building rows; one row per game
     rows = []
-    for game in game_data:
-        winner, history = game
-
+    for summary in game_data:
         # How many toothpicks were taken at each turn in the game
-        turns = [turn["move"] for turn in history.values()]
+        turns = [summary.history[turn]["move"] for turn in summary.history]
         # Who took those toothpicks
-        names = [state["name"] for state in history.values()]
+        names = [summary.history[turn]["name"] for turn in summary.history]
 
         # Start creating a row
         moves = []
@@ -35,17 +48,16 @@ def write_to_csv(game_data, filename):
             # If a turn was 2, add a turn of 0 after it
             # This ensures that our rows are all the same length
             if turns[i] == 2:
-                moves.append(0)
+                moves.append(None)
                 moves.append(None)
 
         # Append the winner of the game
-        moves.append(winner)
+        moves.append(summary.winner)
 
         # Add the row we just made to the running list of rows
         rows.append(moves)
 
     # Write to csv
-    import csv
     with open(filename, "w") as csvfile:
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow(headings)

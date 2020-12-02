@@ -8,19 +8,9 @@ from base_script import run_game
 
 """
 run_game(num_games: int
-          board_sizes: list
+          board_size: int
           p1_strategy: string
           p2_strategy: string)
 """
 
-#run_game(100, range(100), "random", "random")
-run_game(10, [10], "random", "random")
-
-#run_game(100, range(100), "take_one", "random")
-#run_game(100, range(100), "random", "take_one")
-
-#run_game(100, range(100), "take_two", "random")
-#run_game(100, range(100), "random", "take_two")
-
-#run_game(1, range(100), "take_one", "take_two")
-#run_game(1, range(100), "take_two", "take_one")
+run_game(10, 10, "random", "random")

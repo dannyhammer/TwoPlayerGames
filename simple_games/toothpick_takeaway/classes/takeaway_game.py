@@ -1,4 +1,3 @@
-
 ##
 # This implements a Game that takes a list/set of players, a referee, and a
 # board. It automates the process of playing the game, and returns a winner.
@@ -8,48 +7,48 @@
 # Date: Oct 17, 2020
 ##
 
+from takeaway_data import TakeawayData
 
 class TakeawayGame:
+    def __init__(self, board, referee, players):
+        """
+        Instantiates a new TakeawayGame object.
 
-    def __init__(self, board = None, referee = None, players = None):
-        """ The game constructor declares a new board, referee, and two
-        players.
+        Parameters:
+            board (TakeawayBoard): The board being played on
+            referee (TakeawayReferee): The referee for the game
+            players (list): The players playing the game
 
-        Args:
-            board : The game board
-            referee : The current game referee
-            players : A list of the players
-
+        Returns:
+            A newly instatiated TakeawayGame
         """
         self.referee = referee
         self.board = board
         self.players = players
 
-    def play(self,narrated = False):
-        """ This function allows for the game to be played.
+    def play(self,narrated = False) -> TakeawayData:
+        """
+        Plays a single game of Toothpick Takeaway.
 
-        Args:
-            verbose (boolean): Whether or not status should be printed. 
+        Parameters:
+            narrated (bool): Whether to narrate the game
 
-        Return:
-            The winning player
+        Returns:
+            The winner of the game and the move history
         """
         self.board.reset()
         turn = 0
         winner = None
-        game_on = True
 
-        while game_on:
-            current_player = self.players[turn % 2]
-            current_opponent = self.players[(turn + 1) % 2]
+        while winner is None:
+            player = self.players[turn % 2]
+            opponent = self.players[(turn + 1) % 2]
             turn = turn + 1
 
-            winner, current_move = self.referee.update_board(board = self.board, player = current_player, opponent = current_opponent)
-            game_on = (winner is None)
+            move = self.referee.update(player)
+            winner = self.referee.check_for_winner(move, player, opponent)
 
             if (narrated):
-                print(current_player.player_name, "drew", 
-                          current_move, "toothpicks")
-                print(self.board.state, "toothpicks left")
+                print(player.player_name, "drew", move, "toothpicks.", self.board.state, "left")
 
-        return winner, self.board.move_history
+        return self.board.summary

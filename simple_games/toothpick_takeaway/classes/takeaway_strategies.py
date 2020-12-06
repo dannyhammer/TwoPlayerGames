@@ -77,10 +77,10 @@ class TakeawayStrategy:
             A move to try
         """
         # Get the otpimal move
-        move_to_try = 1 if self.data["Take 1 Win %"][board.state] > self.data["Take 2 Win %"][board.state] else 2
+        move_to_try = 1 if self.data["Take 1"][board.state] > self.data["Take 2"][board.state] else 2
 
         # If both chances are equal, choose randomly or according to a bias, if supplied
-        if self.data["Take 1 Win %"][board.state] == self.data["Take 2 Win %"][board.state]:
+        if self.data["Take 1"][board.state] == self.data["Take 2"][board.state]:
             move_to_try = choice(possible_moves) if self.bias is None else self.bias
 
         # If the move is not legal, mark it as tried and pick the only other option

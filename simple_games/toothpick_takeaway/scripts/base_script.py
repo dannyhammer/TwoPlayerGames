@@ -8,7 +8,7 @@ from takeaway_player import TakeawayPlayer
 from takeaway_strategies import TakeawayStrategy
 from csv_writer import write_to_csv
 
-def run_game(num_games, toothpicks, p1_strat_name, p2_strat_name, display_output = False):
+def run_game(num_games, toothpicks, p1_strat_name, p2_strat_name, p1_data = None, p2_data = None, display_output = False):
     """
     Runs a specified number of games.
 
@@ -17,11 +17,16 @@ def run_game(num_games, toothpicks, p1_strat_name, p2_strat_name, display_output
         toothpicks (int): Initial number of toothpicks to use
         p1_strat_name (string): Name of strategy for player 1 to use
         p2_strat_name (string): Name of strategy for player 2 to use
+        p1_data (DataFrame): Win chance data for player 1
+        p2_data (DataFrame): Win chance data for player 2
         display_output (bool): Whether to display output to the console
+
+    Returns:
+        The game data collected
     """
     # Obtain the strategies for each player
-    p1_strategy = TakeawayStrategy(p1_strat_name)
-    p2_strategy = TakeawayStrategy(p2_strat_name)
+    p1_strategy = TakeawayStrategy(p1_strat_name, p1_data)
+    p2_strategy = TakeawayStrategy(p2_strat_name, p2_data)
 
     # We're going to collect a lot of data
     game_data = []
@@ -53,3 +58,5 @@ def run_game(num_games, toothpicks, p1_strat_name, p2_strat_name, display_output
     # Write to csv
     filename = "{}_{}_{}.csv".format(p1_strat_name, p2_strat_name, num_games)
     write_to_csv(game_data, filename)
+
+    return game_data

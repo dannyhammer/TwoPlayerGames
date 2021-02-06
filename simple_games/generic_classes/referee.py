@@ -3,95 +3,71 @@
 #
 # Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Penland, Andrew Shelton
 #
-# Date: Sep 22, 2020
+# Date: 2021-02-06
 ##
 class Referee:
 
-    def __init__(self, board, legal_function = lambda x: None,
-                 winning_function = lambda x: None):
-        """ This class models a referee for a game.
-        Args:
-            board : The board of the game being played``
-
+    def __init__(self, board, rules):
         """
-        self.is_game_over = False
+        This class models a referee for a game.
+
+        Args:
+            board : The board of the game being played
+            rules : The ruleset of the current game
+        """
         self.board = board
-        self.is_legal = legal_function
-        self.is_winning = winning_function
+        self.rules = rules
 
-    def update_board(self, board, player, other_player) -> object:
-        """ This method will handle updating the game board.
+    def update_board(self, board, player, move):
+        """
+        This method updates the game board according to the game's ruleset.
 
         Args:
-            board : the game board
-            player : the current player making the move
-            other_player : the player not making the move
-
-        Return:
-            The winning_player or None depending on the move update
-
+            board : The game board
+            move : The move made
         """
-        current_move = self.ask_for_move(board, player, None)
-        prev_move_list = []
-        is_turn_over = False
-        winning_player = None
+        self.rules.update_board(board, player, move)
 
-        while not is_turn_over:
-            current_move = player.move(board)
-
-            # check to see if player has given up
-            if current_move in prev_move_list or current_move is None:
-                is_turn_over = True
-                self.is_game_over = True
-                winning_player = other_player
-
-            elif not(self.is_legal(board, current_move)):
-                prev_move_list.append(current_move)
-                #is_turn_over = True
-
-        return winning_player
-
-    def ask_for_move(self, board, player, opponent):
-        """ This method takes in the board and current player and prompts for
-        the next move.
-
-        Then returns the move and a winner if found
+    def ask_for_move(self, player, board):
+        """
+        Retrieves a proposed move from the current player.
 
         Args:
-            board : the game board
-            player : player whose turn it is
-            opponent: player whose turn it is not
+            player : Player whose turn it is
+            board : The game board
 
         Return:
-            The winning player, if applicable
-            The players move
+            The players move, or None if the move failed.
         """
-        previous_moves_tried = [] #to check for repeats
-        is_turn_over = False
-        winner = None
 
-        while not is_turn_over:
-            #see what move the player would want to make.
-            proposed_move = player.move(board)
+        # Ask for a move from the player
+        proposed_move = player.move(board)
 
-            #check to see if player has given up
-            if (proposed_move in previous_moves_tried) or (proposed_move is None): 
-                winner = opponent
-                is_turn_over = True
-                proposed_move = None
+        # If the move was illegal, the player's move is None
+        if not self.rules.is_legal(self.board, proposed_move):
+            proposed_move = None
 
-            #no change in is_turn_over, so we should re-enter the while loop
-            elif not self.is_legal(self.board.state, proposed_move):
-                previous_moves_tried.append(proposed_move)
+        # Return the move, which is either valid or None
+        return proposed_move
 
-            #check to see if player won
-            elif self.is_winning(board, proposed_move):
-                winner = player
-                is_turn_over = True
+    def is_game_over(self, board):
+        """
+        Checks to see if the game is over.
 
-            #in this case the move is legal and not winning
-            else:
-                winner = None
-                is_turn_over = True
+        Args:
+            board : The game board
 
-        return winner, proposed_move
+        Return:
+            True if the game is over, else False.
+        """
+        return self.rules.is_game_over(board)
+
+    def declare_winner(self, board, player):
+        """
+        Declares a winner to the game.
+
+        Args:
+            board : The game board
+            player : The current player making the move
+        """
+        board.data["winner"] = player.name

@@ -1,48 +1,56 @@
-import referee
-import player
-import board
-
 ##
 # This implements a Game that takes a list/set of players, a referee, and a
 # board. It automates the process of playing the game, and returns a winner.
 #
 # Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Penland, Andrew Shelton
 #
-# Date: Sep 22, 2020
+# Date: 2021-02-06
 ##
-
-
 class Game:
-    def __init__(self,game_referee = referee.Referee(), game_board = board.Board(),
-        players = [player.Player(), player.Player()]):
-        """The game constructor declares a new board, referee, and two
-        players. First player should be listed first. 
+
+    def __init__(self, referee, board, players):
+        """
+        Creates a new game with the given referee, board, and players.
 
         Args:
-            referee : the current game referee
-            board : the game board
-            players : the list of players
+            referee : The current game referee
+            board : The game board
+            players : A list of two players
         """
-        self.game_referee = game_referee
-        self.game_board = game_board
-        self.players = players
-
+        self.referee = referee
+        self.board = board
+        self.player = players[0]
+        self.opponent = players[1]
 
     def play(self):
-        """ This function allows for the game to be played.
-
-        Args:
-            None
+        """
+        Plays a game on the current board, moderated by the referee, with the
+        two players provided.
 
         Return:
-            winner (player_name): the name of the player who won the game 
+            The game board being played on
         """
-
-        current_player = self.players[0]
-        other_player = self.players[1]
         winner = None
+        while winner is None:
 
-        while(winner is None):
-            winner, proposed_move = self.game_referee.ask_for_move(self.game_board, current_player, other_player)
-            current_board, current_player = self.game_referee.update(self.game_board, current_player)
-        return winner
+            # Request a move from the current player
+            move = self.referee.ask_for_move(self.player, self.board)
+
+            # If the move is NOT valid, exit the loop
+            if move is None:
+                winner = self.opponent
+
+            # Tell the referee to update the board with the (valid) move
+            else:
+                self.referee.update_board(self.board, self.player, move)
+
+            # Check if the game has been won
+            if self.referee.is_game_over(self.board):
+                winner = self.player
+
+            # Next turn
+            self.player, self.opponent = self.opponent, self.player
+
+        # Declare a winner to the game
+        self.referee.declare_winner(self.board, winner)
+        return self.board

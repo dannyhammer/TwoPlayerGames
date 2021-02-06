@@ -22,10 +22,13 @@ class Game:
         self.player = players[0]
         self.opponent = players[1]
 
-    def play(self):
+    def play(self, narrated = False):
         """
         Plays a game on the current board, moderated by the referee, with the
         two players provided.
+
+        Args:
+            narrated : Whether to enable debug-friendly narration in the game
 
         Return:
             The game board being played on
@@ -35,6 +38,9 @@ class Game:
 
             # Request a move from the current player
             move = self.referee.ask_for_move(self.player, self.board)
+
+            if narrated:
+                print("{} -> {}".format(self.player.name, move))
 
             # If the move is NOT valid, exit the loop
             if move is None:
@@ -53,4 +59,8 @@ class Game:
 
         # Declare a winner to the game
         self.referee.declare_winner(self.board, winner)
+
+        if narrated:
+            print("Winner: " + str(winner.name))
+
         return self.board

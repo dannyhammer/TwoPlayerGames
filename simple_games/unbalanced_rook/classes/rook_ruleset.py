@@ -13,18 +13,7 @@
 
 import sys
 sys.path.append("..")
-sys.path.append("../")
-sys.path.append("../generic_classes")
-sys.path.append("../generic_classes/")
-sys.path.append("../generic_classes/ruleset_interface")
-sys.path.append("../generic_classes/ruleset_interface.py")
-
-import generic_classes
 from generic_classes.ruleset_interface import RulesetInterface
-import generic_classes.ruleset_interface
-import ruleset_interface
-from rulset_interface import RulesetInterface
-import ruleset_interface.RulesetInterface
 
 class RookRuleset(RulesetInterface):
 
@@ -63,7 +52,7 @@ class RookRuleset(RulesetInterface):
 
     def is_game_over(self, board):
         """
-        Updates the rook's position on the board.
+        Determines if the game is over.
 
         Args:
             board : The board being played on

@@ -12,6 +12,9 @@
 ##
 
 import random
+import sys
+sys.path.append("..")
+from generic_classes.strategy_interface import StrategyInterface
 
 class RookStrategy(StrategyInterface):
 

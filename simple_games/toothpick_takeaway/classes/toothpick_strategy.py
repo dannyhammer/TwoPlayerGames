@@ -1,6 +1,6 @@
 ##
-# Defines the strategy used by a player to make a move for Unbalanced Rook.
-# More helper functions can be made, depending on the strategy's complexity.
+# This interface lists the required functions to define a strategy for a game.
+# More helper functions can be made, depending on the game's complexity.
 # The constructor takes in a `data` parameter, which should be a dictionary
 # to pull move data from. If the player wants to be smart with this strategy,
 # the board data and strategy data will need to be analyzed in the `move()`
@@ -12,11 +12,12 @@
 ##
 
 import random
+
 import sys
 sys.path.append("../..")
 from generic_classes.strategy_interface import StrategyInterface
 
-class RookStrategy(StrategyInterface):
+class ToothpickStrategy(StrategyInterface):
 
     def __init__(self, name, data = None):
         """
@@ -24,7 +25,7 @@ class RookStrategy(StrategyInterface):
 
         Args:
             name : The name of the strategy
-            data : Data to read from, if applicable
+            data : (Optional) Data to read from to influence moves.
         """
         self.name = name
         self.data = data
@@ -39,10 +40,5 @@ class RookStrategy(StrategyInterface):
         Return:
             A proposed move.
         """
-        direction = random.choice(["D", "R"])
+        return random.randrange(1, board.bounds + 1)
 
-        # Gets the max number of tiles possible to move
-        max_tiles = board.bounds[direction] - board.state[direction]
-        move = random.randrange(1, max_tiles + 1)
-
-        return {"direction": direction, "tiles": move}

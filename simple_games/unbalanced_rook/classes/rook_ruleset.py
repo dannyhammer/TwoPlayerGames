@@ -17,7 +17,7 @@ from generic_classes.ruleset_interface import RulesetInterface
 
 class RookRuleset(RulesetInterface):
 
-    def __init__(self, name, initial_state = {"D": 0, "R": 0}, bounds = {"D": 9, "R": 9}):
+    def __init__(self, name, initial_state = {"D": 0, "R": 0}, bounds = {"D": 10, "R": 10}):
         """
         Ruleset constructor.
 
@@ -42,7 +42,13 @@ class RookRuleset(RulesetInterface):
             True if the move's direction is Down or Right AND it is within
             bounds of the board
         """
-        legal = True
+        legal = False
+
+        # Check if the move supplied exists and is above 0
+        if (not proposed_move or not proposed_move["tiles"] or
+                not proposed_move["direction"] or proposed_move["tiles"] < 1):
+            return legal
+
         if proposed_move["direction"] == "D":
             legal = board.state["D"] + proposed_move["tiles"] <= board.bounds["D"]
         elif proposed_move["direction"] == "R":
@@ -74,7 +80,7 @@ class RookRuleset(RulesetInterface):
             player : The player who made the move
             move : The move being made
         """
-        state = "{},{}".format(board.state["R"], board.state["D"])
+        state = "{},{}".format(board.state["D"], board.state["R"])
         board.data[state] = (player.name, move)
 
         board.state[move["direction"]] += move["tiles"]

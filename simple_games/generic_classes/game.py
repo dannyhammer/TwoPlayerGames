@@ -33,6 +33,10 @@ class Game:
         Return:
             The game board being played on
         """
+
+        # Reset the board for additional playthroughs
+        self.board.reset()
+
         winner = None
         while winner is None:
 

@@ -5,6 +5,9 @@
 #
 # Date: 2021-02-06
 ##
+
+from copy import deepcopy
+
 class Board:
 
     def __init__(self, initial_state = None, bounds = None):
@@ -24,5 +27,5 @@ class Board:
         """
         Resets the board to its original state.
         """
-        self.state = self.initial_state
+        self.state = deepcopy(self.initial_state)
         self.data = {}

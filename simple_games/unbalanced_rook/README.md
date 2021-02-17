@@ -93,6 +93,11 @@ A move is legal if and only if it matches the following conditions:
 3. The `move["tiles"]` field is greater than `0`.
 4. The number of tiles moved will not place the Rook beyond the bounds of the board.
 
+### Example Illegal Moves
+
+- `move[direction] = "T"`
+- `move[tiles] = "-1"` or `move[tiles] = "-1200"`
+
 ### Determining End-Game States
 
 The game has reached an end-game state if and only if the board's `state` is equal to the board's `bounds`.

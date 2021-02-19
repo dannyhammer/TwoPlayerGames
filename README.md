@@ -19,7 +19,22 @@ Two-player graph coloring violates Rule 4. If the second player has no legal mov
 
 Nevertheless, this class of games makes a good starting point for our analysis.
 
-## To Commit:
+## Project Structure
+
+- jupyter_notes -- holds most of our notes on research and meetings
+- simple_games
+  - generic_class -- holds the generic classes needed for a new game
+  - toothpick_takeaway -- first game worked on
+  - unbalanced_rook -- second game worked
+  - Overview.ipynb -- An overview of the project and the current progress being made.
+
+## Current Game Focus
+
+Currently working to produce either a generic csv writer for any game or at minimum one for
+each game that way we can collect the data and begin to parse through looking for any patterns that
+might be occurring.
+
+## Contribution Standards
 
 In order to have a uniform code commit process, we will follow the idea of
 semantic commits.

@@ -61,6 +61,13 @@ A move is legal if and only if it matches the following conditions:
 2. The move is greater than 0.
 3. The move is less than either the board's `bounds` or the number of toothpicks left on the board, whichever is smaller.
 
+### Examples of Illegal Moves
+
+- 3 toothpicks left, player 2 tries to take 3 toothpicks
+- 3 toothpicks left, player 2 tries to take 4 toothpicks
+- 3 toothpicks left, player 1 tries to take -1 toothpicks
+- player tries to take 0 toothpicks, this violates rule 2
+
 ### Determining End-Game States
 
 The game has reached an end-game state if and only if the board's `state` is equal to 0.

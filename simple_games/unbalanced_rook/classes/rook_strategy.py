@@ -43,6 +43,8 @@ class RookStrategy(StrategyInterface):
 
         # Gets the max number of tiles possible to move
         max_tiles = board.bounds[direction] - board.state[direction]
+        if max_tiles < 1:
+            return None
         move = random.randrange(1, max_tiles + 1)
 
         return {"direction": direction, "tiles": move}

@@ -79,3 +79,9 @@ The board's `data` serves as a move history log.
 This history is indexed by the current board state, which is an integer.
 The values at these indices are tuples in the form `(player name, move made)`.
 The board's `state` field is updated by subtracting the number of toothpicks taken from the board state.
+
+### Declaring a Winner
+
+A winner is determined based on the last player who made a legal move in the game.
+If the last player who moved made an invalid move, then the game is over.
+As invalid moves are not logged, the winner is therefore the last player who moved.

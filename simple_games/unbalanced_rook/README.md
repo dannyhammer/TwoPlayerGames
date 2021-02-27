@@ -109,3 +109,9 @@ The board's `data` serves as a move history log.
 This history is indexed by a `D,R` pair (representing the current position of the Rook).
 The values at these indices are tuples in the form `(player name, move made)`.
 The board's `state` field is updated by increasing the position of the Rook in the appropriate direction by the number of tiles in the move made.
+
+### Declaring a Winner
+
+A winner is determined based on the last player who made a legal move in the game.
+If the last player who moved made an invalid move, then the game is over.
+As invalid moves are not logged, the winner is therefore the last player who moved.

@@ -62,12 +62,18 @@ class Referee:
         """
         return self.rules.is_game_over(board)
 
-    def declare_winner(self, board, player):
+    def declare_winner(self, board, players):
         """
         Declares a winner to the game.
 
         Args:
             board : The game board
-            player : The current player making the move
+            players : List of players in the game
+
+        Return:
+            The winning player of the game
         """
-        board.data["winner"] = player.name
+        winner = self.rules.declare_winner(board, players)
+        board.data["winner"] = winner.name
+
+        return winner

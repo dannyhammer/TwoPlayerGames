@@ -56,3 +56,18 @@ class RulesetInterface:
             move : The move being made
         """
         pass
+
+    def declare_winner(self, board, players):
+        """
+        Declare a winner based on the board's current state.
+        In many cases, the winner will simply be whoever made the most recent move.
+        However, for more complex games, the board's state will need to be considered
+
+        Args:
+            board : The board being played on
+            players : List of players in the game
+
+        Return:
+            The winning player of the game
+        """
+        pass

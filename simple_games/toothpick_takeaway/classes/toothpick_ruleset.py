@@ -67,3 +67,21 @@ class ToothpickRuleset(RulesetInterface):
         """
         board.data[board.state] = (player.name, move)
         board.state -= move
+
+    def declare_winner(self, board, players):
+        """
+        Declare a winner based on the board's current state.
+        The last entry is the last player who made a legal move,
+        and is therefore the winner of the game
+
+        Args:
+            board : The board being played on
+            players : List of players in the game
+
+        Return:
+            The winning player of the game
+        """
+        last_entry = list(board.data.values())[-1][0]
+
+        return players[0] if players[0].name is last_entry else players[1]
+

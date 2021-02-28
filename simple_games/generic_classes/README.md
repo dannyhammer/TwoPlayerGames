@@ -82,4 +82,8 @@ The board's `data` serves as a move history log.
 This history is indexed by the current board state, which is <board state data type>.
 The values at these indices are tuples in the form `(player name, move made)`.
 The board's `state` field is updated by <how board.state is updated>.
+
+### Declaring a Winner
+
+A winner is determined based on <how a winner is chosen>
 ```

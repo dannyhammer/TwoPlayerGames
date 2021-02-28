@@ -19,8 +19,7 @@ class Game:
         """
         self.referee = referee
         self.board = board
-        self.player = players[0]
-        self.opponent = players[1]
+        self.players = players
 
     def play(self, narrated = False):
         """
@@ -37,32 +36,39 @@ class Game:
         # Reset the board for additional playthroughs
         self.board.reset()
 
+        # Keep a turn counter for assigning current player
+        turn = 0
+        player = self.players[turn]
+        opponent = self.players[turn + 1]
+
         winner = None
-        while winner is None:
+        while not self.referee.is_game_over(self.board):
 
             # Request a move from the current player
-            move = self.referee.ask_for_move(self.player, self.board)
+            move = self.referee.ask_for_move(player, self.board)
 
             if narrated:
-                print("{} -> {}".format(self.player.name, move))
+                print("{} -> {}".format(player.name, move))
 
-            # If the move is NOT valid, exit the loop
+            # If the move is NOT valid, exit the loop, as the game is over
+            # The current opponent is also declared the winner
             if move is None:
-                winner = self.opponent
+                winner = opponent
+                break
 
             # Tell the referee to update the board with the (valid) move
             else:
-                self.referee.update_board(self.board, self.player, move)
-
-            # Check if the game has been won
-            if self.referee.is_game_over(self.board):
-                winner = self.player
+                self.referee.update_board(self.board, player, move)
 
             # Next turn
-            self.player, self.opponent = self.opponent, self.player
+            opponent = self.players[turn]
+            turn = (turn + 1) % 2
+            player = self.players[turn]
 
-        # Declare a winner to the game
-        self.referee.declare_winner(self.board, winner)
+        # Declare a winner to the game if and only if the last move made
+        # was not None (meaning a winner has not already been declared)
+        if winner is None:
+            winner = self.referee.declare_winner(self.board, self.players)
 
         if narrated:
             print("Winner: " + str(winner.name))

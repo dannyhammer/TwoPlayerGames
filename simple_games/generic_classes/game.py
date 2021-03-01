@@ -65,10 +65,10 @@ class Game:
             turn = (turn + 1) % 2
             player = self.players[turn]
 
-        # Declare a winner to the game if and only if the last move made
-        # was not None (meaning a winner has not already been declared)
-        if winner is None:
-            winner = self.referee.declare_winner(self.board, self.players)
+        # Declare a winner using the game's rules and board
+        # If either player made an illegal move, the winner has already been
+        # decided and this function just updates the board's history
+        winner = self.referee.declare_winner(self.board, self.players, winner)
 
         if narrated:
             print("Winner: " + str(winner.name))

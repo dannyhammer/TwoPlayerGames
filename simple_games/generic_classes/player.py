@@ -30,3 +30,19 @@ class Player:
             The move made.
         """
         return self.strategy.move(board)
+
+    def __str__(self):
+        """
+        Overrides the default implementation of `str()`.
+        Provides a more readable way of printing players.
+
+        Return:
+            A formatted string containing the player's name and strategy's info
+        """
+        string = "{}: {}".format(self.name, self.strategy.name)
+
+        # If strategy data is available, display it
+        if self.strategy.data:
+            string = "{}: {}".format(string, self.strategy.data)
+
+        return string

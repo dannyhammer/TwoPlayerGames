@@ -28,9 +28,6 @@ representing the shared borders.
 ![G4](../../assets/images/g3.png)
 ![G4](../../assets/images/g4.png)
 ![G5](../../assets/images/g5.png)
-![G6](../../assets/images/g6.png)
-![G7](../../assets/images/g7.png)
-![G8](../../assets/images/g8.png)
 
 ## Implementation
 

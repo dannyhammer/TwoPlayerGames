@@ -14,7 +14,20 @@ A simple two-player game about coloring a graph.
 
 ## Visual Example
 
-< TODO: Add visual example of the game (use pictures from old poster?) >
+Below is an image of the southeastern United States.
+![SE States](../../assets/images/states.png)
+
+We can extract the following graph, with each vertex representing a state and the edges
+representing the shared borders.
+
+![Graph States](../../assets/images/stategraph.png)
+
+![Game start](../../assets/images/g1.png)
+![G2](../../assets/images/g1.png)
+![G3](../../assets/images/g2.png)
+![G4](../../assets/images/g3.png)
+![G4](../../assets/images/g4.png)
+![G5](../../assets/images/g5.png)
 
 ## Implementation
 

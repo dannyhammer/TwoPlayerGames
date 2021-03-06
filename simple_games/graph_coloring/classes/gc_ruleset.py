@@ -13,7 +13,7 @@
 
 import sys
 sys.path.append("../..")
-from generic_classes.ruleset_interface import RulesetInterface
+from src.ruleset_interface import RulesetInterface
 
 class GCRuleset(RulesetInterface):
 

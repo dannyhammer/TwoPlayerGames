@@ -11,7 +11,7 @@ from random import sample
 
 import sys
 sys.path.append("../..")
-from src.strategy_interface import StrategyInterface
+from classes.strategy_interface import StrategyInterface
 
 class GCRandomInitStrategy(StrategyInterface):
 

@@ -13,7 +13,7 @@
 
 import sys
 sys.path.append("..")
-from src.ruleset_interface import RulesetInterface
+from classes.ruleset_interface import RulesetInterface
 
 class RookRuleset(RulesetInterface):
 

@@ -15,7 +15,7 @@ from random import choice
 
 import sys
 sys.path.append("../..")
-from src.strategy_interface import StrategyInterface
+from classes.strategy_interface import StrategyInterface
 
 class GCSimpleSmartStrategy(StrategyInterface):
 

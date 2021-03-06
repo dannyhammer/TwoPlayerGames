@@ -77,8 +77,8 @@ class Player:
             True if the players are equal, else False
         """
         if isinstance(other, Player):
-            return (self.strategy is other.strategy
-                    and self.name is other.name
+            return (self.strategy == other.strategy
+                    and self.name == other.name
                     and self.wins == other.wins
                     and self.losses == other.losses
                     and self.generation == other.generation)
@@ -97,8 +97,8 @@ class Player:
             True if the players are not equal, else False
         """
         if isinstance(other, Player):
-            return (self.strategy is not other.strategy
-                    or self.name is not other.name
+            return (self.strategy != other.strategy
+                    or self.name != other.name
                     or self.wins != other.wins
                     or self.losses != other.losses
                     or self.generation != other.generation)

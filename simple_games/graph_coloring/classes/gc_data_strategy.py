@@ -14,7 +14,7 @@ import sys
 sys.path.append("../..")
 from src.strategy_interface import StrategyInterface
 
-class GCSmartStrategy(StrategyInterface):
+class GCDataStrategy(StrategyInterface):
 
     def __init__(self, name, data = None):
         """

@@ -64,7 +64,7 @@ class Referee:
 
     def declare_winner(self, board, players, winner=None):
         """
-        Declares a winner to the game.
+        Declares a winner to the game and updates each player's win/loss counters.
 
         Args:
             board : The game board
@@ -80,5 +80,13 @@ class Referee:
             winner = self.rules.declare_winner(board, players)
 
         board.data["winner"] = winner.name
+
+        # Get the loser, as well
+        loser = players[0] if players[1] is winner else players[1]
+
+        # Update winner and loser win/loss scores
+        winner.wins += 1
+        loser.losses += 1
+
 
         return winner

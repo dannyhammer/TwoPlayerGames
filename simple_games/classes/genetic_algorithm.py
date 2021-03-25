@@ -1,10 +1,11 @@
 ##
-# This class contains the functions needed to generate populations, breed players,
+# This class is the blueprint for a Genetic Algorithm.
+# It contains the functions needed to generate populations, breed players,
 # and generate mutations during reproduction.
 #
 # Authors: Daniel Hammer, Nicholas O'Kelley, Andrew Penland, Andrew Shelton
 #
-# Date: 2021-03-06
+# Date: 2021-03-20
 ##
 
 from random import sample, random, randrange
@@ -12,27 +13,43 @@ from copy import deepcopy
 from . import tournament as t
 from . import player as p
 
-class Evolution:
+class GeneticAlgorithm:
 
-    def __init__(self, strategy, mutation_rate = 0.025):
+    def __init__(self, ruleset, random_on_init_strat, strat_data, pop_size = 1000, iterations = 100, num_games = 10, fitness = 0.5, max_fitness = 0.9, fitness_increment = 0.025, mutation_rate = 0.025):
         """
         Creates a new Evolution object.
 
         Args:
-            strategy : Baseline strategy to begin evolving from
+            ruleset : The ruleset of the game being evolved upon
+            random_on_init_straty: A random-on-initialize strategy constructor used to give each player a random strategy
+            strat_data : Data to be fed to the strategy
+            pop_size : (Optional) Size of each population to generate
+            iterations : (Optional) Number of times to iterate; number of generations to produce
+            num_games : (Optional) Minimal number of games each player must compete in during a tournament
+            fitness : (Optional) Initial fitness needed for a player to survive
+            max_fitness : (Optional) Maximum fitness required for survival
+            fitness_increment : (Optional) How much to increment the fitness after each iteration
             mutation_rate : (Optional) Chance that a mutation will occur during reproduction
         """
-        self.strategy = strategy
+        self.ruleset = ruleset
+        self.random_on_init_strat = random_on_init_strat
+        self.strat_data = strat_data
+        self.pop_size = pop_size
+        self.iterations = iterations
+        self.num_games = num_games
+        self.fitness = fitness
+        self.max_fitness = max_fitness
+        self.fitness_increment = fitness_increment
         self.mutation_rate = mutation_rate
-        self.tournament = t.Tournament()
 
-    def generate_population(self, num_players, player_to_gen):
+
+    def generate_population(self, pop_size, player_to_gen):
         """
         Generates a population of players with random strategies for the
         Graph Coloring Game.
 
         Args:
-            num_players : The number of players to create
+            pop_size : Number of players to generate
             player_to_gen : 1 or 2, depending on what population we are generating
 
         Return:
@@ -42,19 +59,12 @@ class Evolution:
         strategies = []
         generated = 0
         failures = 0
-        max_attempts = 10 * num_players
+        max_attempts = 10 * pop_size
 
-        while generated < num_players:
-            # Clone the example strategy
-            strat = deepcopy(self.strategy)
+        while generated < pop_size:
 
-            # Shuffle the orderings in the data
-            new_data = {}
-            for key in strat.data.keys():
-                new_data[key] = sample(strat.data[key], len(strat.data[key]))
-
-            # Update the data of the new strategy
-            strat.set_data(new_data)
+            # Generate a random strategy 
+            strat = self.random_on_init_strat("Basic Data Strategy", self.strat_data)
 
             # Only append unique strategies
             if strat not in strategies:
@@ -73,13 +83,14 @@ class Evolution:
         # Generate a new player for every strategy
         for strat in strategies:
             player = p.Player("Player {}".format(player_to_gen), strat)
+
             # Strategies are unique, so we don't need to check player uniqueness
             players.append(player)
             generated += 1
 
         return players
 
-    def spawn(self, parent1, parent2, child_name, child_strat_name, mutation_rate = .0025):
+    def spawn(self, parent1, parent2, child_name, child_strat_name):
         """
         Spawns a new `Player` instance using the provided players
         as parents.
@@ -89,7 +100,6 @@ class Evolution:
             parent2 : The second parent
             child_name : The name of the child-to-be
             child_strat_name : The name of the child's strategy
-            mutation_rate : Percentage for a mutation to occur
 
         Return:
             A new `Player` with traits from both parents
@@ -116,7 +126,7 @@ class Evolution:
             child_trait = p1_inherit + p2_inherit
 
             # Mutation Check: If mutation occurs, swap two genes
-            if random() < mutation_rate:
+            if random() < self.mutation_rate:
                 index1, index2 = sample(range(len(p1_trait)), 2)
                 child_trait[index1], child_trait[index2] = child_trait[index2], child_trait[index1]
 
@@ -132,7 +142,7 @@ class Evolution:
 
         return child
 
-    def evolve(self, pop_size, ruleset, iterations, num_games = 10, mutation_rate = 0.025, fitness = 0.5, max_fitness = 0.9, fitness_increment = 0.05, verbose = False):
+    def evolve(self, verbose = False):
         """
         Generates random populations of players and evolves them across a specified
         number of generations.
@@ -140,70 +150,59 @@ class Evolution:
         and reproducing good players with each other to produce optimal children.
 
         Args:
-            pop_size : Size of the populations to generate
-            ruleset : The ruleset of the game to play on
-            iterations: Number of iterations to evolve players
-            num_games : (Optional) Minimum number of games each player must play per generation
-            mutation_rate : (Optional) Percentage to mutation to occur
-            initial_fitness : (Optional) Initial minimum win percentage to continue playing
-            max_fitness : (Optional) Maximum fitness to test players against
-            fitness_increment : (Optional) What to increment the fitness by after each iteration
             verbose : (Optional) Whether to print debug information
 
         Return:
             Two lists, containing the elite P1 and P2 populations, respectively
         """
         # Create populations of players with random strategies
-        p1_pop = self.generate_population(pop_size, 1)
-        p2_pop = self.generate_population(pop_size, 2)
+        p1_pop = self.generate_population(self.pop_size, 1)
+        p2_pop = self.generate_population(self.pop_size, 2)
 
-        for i in range(iterations):
+        for i in range(self.iterations):
+            # Create a new tournament for each iteration
+            tournament = t.Tournament(self.ruleset, self.num_games, self.fitness)
+
             # Compete both populations against each other
-            p1_pop, p2_pop = self.tournament.compete(p1_pop, p2_pop, ruleset, num_games, fitness)
+            p1_pop, p2_pop = tournament.compete(p1_pop, p2_pop)
 
             if verbose:
-                print("\nITERATION: {}, FITNESS: {}".format(i, round(fitness, 4)))
+                print("\nITERATION: {}, FITNESS: {}".format(i, round(self.fitness, 4)))
                 print("\tP1 Pop: " + str(len(p1_pop)))
                 print("\tP2 Pop: " + str(len(p2_pop)))
 
             # Repopulate p1_pop
-            self.repopulate(p1_pop, pop_size, 1, i, ruleset, mutation_rate, verbose)
-            self.repopulate(p2_pop, pop_size, 2, i, ruleset, mutation_rate, verbose)
+            self.repopulate(p1_pop, 1, i, verbose)
+            self.repopulate(p2_pop, 2, i, verbose)
 
             # Never increase fitness beyond 90%
-            if fitness < max_fitness:
-                fitness += fitness_increment
+            if self.fitness < self.max_fitness:
+                self.fitness += self.fitness_increment
 
         # Return the elite players
         return p1_pop, p2_pop
 
-    def repopulate(self, pop, pop_size, pop_id, iteration, ruleset, mutation_rate, verbose):
+    def repopulate(self, pop, pop_id, iteration, verbose = False):
         """
         Breeds a depleted population until its capacity is reached again.
 
         Args:
             pop : The population to reproduce from
-            pop_size : The capacity of the population
             pop_id : The player ID of the population; 1 or 2
             iteration: The iteration of the players being generated
-            ruleset : Ruleset of the game being played
-            mutation_rate : Percentage that a mutation will occur
-            verbose : Whether to print debug information
-
-        Return:
-            A list of children to add to the population
+            verbose : (Optional) Whether to print debug information
         """
         # Keep track of number of children made
         child_counter = 0
 
-        while len(pop) < pop_size:
+        while len(pop) < self.pop_size:
             child_counter += 1
 
             # If the population is too low, repopulate randomly
             if len(pop) < 2:
                 if verbose:
                     print("WARNING: Player {} population too low! Repopulating randomly".format(pop_id))
-                pop += self.generate_population(pop_size // 2, pop_id)
+                pop += self.generate_population(self.pop_size // 2, pop_id)
 
             # Get two random parents
             parent1, parent2 = sample(pop, 2)
@@ -213,7 +212,7 @@ class Evolution:
             child_strat_name = "Evolved Strategy #{}".format(child_counter)
 
             # Create the child
-            child = self.spawn(parent1, parent2, child_name, child_strat_name, mutation_rate)
+            child = self.spawn(parent1, parent2, child_name, child_strat_name)
 
             # Add the new child to the population
             pop.append(child)

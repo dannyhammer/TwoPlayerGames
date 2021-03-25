@@ -14,20 +14,9 @@
 import random
 import sys
 sys.path.append("../..")
-from generic_classes.strategy_interface import StrategyInterface
+from classes.strategy_interface import StrategyInterface
 
 class RookStrategy(StrategyInterface):
-
-    def __init__(self, name, data = None):
-        """
-        Strategy constructor.
-
-        Args:
-            name : The name of the strategy
-            data : Data to read from, if applicable
-        """
-        self.name = name
-        self.data = data
 
     def move(self, board):
         """

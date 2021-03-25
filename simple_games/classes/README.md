@@ -1,19 +1,28 @@
-# Generic Classes
+# Classes
 
-Bare-bones classes and interfaces for base-level functionality across games.
+Generic classes and interfaces for base-level functionality across games.
 
 ### Contents
 
-- Player - Opponents in the game
 - Board - Centerpiece of the game
+- Evolution - Contains logic to evolve populations of players
 - Game - Logic and structure
+- Player - Opponents in the game
 - Referee - Legality checks, score keeping, etc.
 - Ruleset Interface - Defines the rules of how the game is played
 - Strategy Interface - Defines how a player makes a move
+- Tournament - Contains logic to compete populations against each other
+
+### Existing Features
+
+Many methods already exist on the provided `Player` and `StrategyInterface` classes.
+A `Player` has counters to track wins and losses, generation, and can calculate a fitness rating.
+`Player`s are also able to be compared using any of the six default comparison operators (`==`, `!=`, `<`, `>`, `<=`, `>=`).
+Anything that inherits from the `StrategyInterface` can be displayed using print formatting, compared using `==` and `!=`, and updated using the provided mutator methods.
 
 ### Implementing
 
-The `Player`, `Board`, `Game`, and `Referee` classes should all be imported normally. Both interfaces need to be implemented on newly-created classes that are game-specific. **All functions in the interface must be implemented exactly as they are presented**. Creating a new game is as simple as defining two new classes to implement these interfaces.
+The `Player`, `Board`, `Game`, `Referee`, `Evolution` and `Tournament` classes should all be imported normally. Both interfaces need to be implemented on newly-created classes that are game-specific. **All functions in the interface must be implemented exactly as they are presented**. Creating a new game is as simple as defining two new classes to implement these interfaces.
 
 When creating a new game, copy and paste the following Markdown to create a `README.md` for that game.
 Replace the generic entries with game-specific entries and flesh-out the contents of each section.

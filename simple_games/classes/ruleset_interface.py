@@ -61,6 +61,7 @@ class RulesetInterface:
         """
         Declare a winner based on the board's current state.
         In many cases, the winner will simply be whoever made the most recent move.
+        In these cases, this method does not need to be overriden.
         However, for more complex games, the board's state will need to be considered
 
         Args:
@@ -70,4 +71,6 @@ class RulesetInterface:
         Return:
             The winning player of the game
         """
-        pass
+        last_entry = list(board.data.values())[-1][0]
+
+        return players[0] if players[0].name is last_entry else players[1]

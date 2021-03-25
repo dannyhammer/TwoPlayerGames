@@ -15,20 +15,9 @@ import random
 
 import sys
 sys.path.append("../..")
-from generic_classes.strategy_interface import StrategyInterface
+from classes.strategy_interface import StrategyInterface
 
 class ToothpickStrategy(StrategyInterface):
-
-    def __init__(self, name, data = None):
-        """
-        Strategy constructor.
-
-        Args:
-            name : The name of the strategy
-            data : (Optional) Data to read from to influence moves.
-        """
-        self.name = name
-        self.data = data
 
     def move(self, board):
         """
@@ -41,4 +30,3 @@ class ToothpickStrategy(StrategyInterface):
             A proposed move.
         """
         return random.randrange(1, board.bounds + 1)
-

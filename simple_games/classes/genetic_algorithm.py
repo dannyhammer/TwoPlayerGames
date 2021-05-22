@@ -13,6 +13,10 @@ from copy import deepcopy
 from . import tournament as t
 from . import player as p
 
+import pandas as pd
+
+COLUMNS = ["Name", "Gen", "Vertices", "Colors", "Fitness", "Wins", "Losses"]
+
 class GeneticAlgorithm:
 
     def __init__(self, ruleset, random_on_init_strat, strat_data, pop_size = 1000, iterations = 100, num_games = 10, fitness = 0.5, max_fitness = 0.9, fitness_increment = 0.025, mutation_rate = 0.025):
@@ -41,6 +45,8 @@ class GeneticAlgorithm:
         self.max_fitness = max_fitness
         self.fitness_increment = fitness_increment
         self.mutation_rate = mutation_rate
+
+
 
 
     def generate_population(self, pop_size, player_to_gen):
@@ -142,7 +148,7 @@ class GeneticAlgorithm:
 
         return child
 
-    def evolve(self, verbose = False):
+    def evolve(self, verbose = False, to_df = False):
         """
         Generates random populations of players and evolves them across a specified
         number of generations.
@@ -151,6 +157,7 @@ class GeneticAlgorithm:
 
         Args:
             verbose : (Optional) Whether to print debug information
+            to_df : (Optional) Whether to return players in a DataFrame
 
         Return:
             Two lists, containing the elite P1 and P2 populations, respectively
@@ -180,7 +187,24 @@ class GeneticAlgorithm:
                 self.fitness += self.fitness_increment
 
         # Return the elite players
-        return p1_pop, p2_pop
+        if to_df:
+
+            # Format lists into DataFrames
+            p1_df = pd.DataFrame(columns=COLUMNS)
+            for p1 in p1_pop:
+                p1_df = update_df(p1_df, p1)
+
+            p2_df = pd.DataFrame(columns=COLUMNS)
+            for p2 in p2_pop:
+                p2_df = update_df(p2_df, p2)
+
+            # Sort the values
+            p1_df.sort_values(by=["Fitness", "Wins"], ascending=False, inplace=True)
+            p2_df.sort_values(by=["Fitness", "Wins"], ascending=False, inplace=True)
+
+            return p1_df, p2_df
+        else:
+            return p1_pop, p2_pop
 
     def repopulate(self, pop, pop_id, iteration, verbose = False):
         """
@@ -192,11 +216,11 @@ class GeneticAlgorithm:
             iteration: The iteration of the players being generated
             verbose : (Optional) Whether to print debug information
         """
-        # Keep track of number of children made
-        child_counter = 0
+        # Keep track of number of strategies
+        strat_counter = 0
 
         while len(pop) < self.pop_size:
-            child_counter += 1
+            strat_counter += 1
 
             # If the population is too low, repopulate randomly
             if len(pop) < 2:
@@ -208,8 +232,8 @@ class GeneticAlgorithm:
             parent1, parent2 = sample(pop, 2)
 
             # Name the child and its strategy
-            child_name = "Player {} #{}.{}".format(pop_id, iteration, child_counter)
-            child_strat_name = "Evolved Strategy #{}".format(child_counter)
+            child_name = "Player {}".format(pop_id)
+            child_strat_name = "Evolved Strategy #{}".format(strat_counter)
 
             # Create the child
             child = self.spawn(parent1, parent2, child_name, child_strat_name)
@@ -218,3 +242,16 @@ class GeneticAlgorithm:
             pop.append(child)
 
         pop.sort(reverse=True)
+
+def update_df(df, player):
+    new_row = {
+        "Name": player.name,
+        "Gen": player.generation,
+        "Vertices": player.strategy.data["vertices"],
+        "Colors": player.strategy.data["colors"],
+        "Fitness": player.fitness(),
+        "Wins": player.wins,
+        "Losses": player.losses,
+        }
+
+    return df.append(new_row, ignore_index=True)

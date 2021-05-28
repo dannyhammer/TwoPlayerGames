@@ -111,5 +111,5 @@ The board's `state` field is updated by changing the `color` field of the vertex
 ### Declaring a Winner
 
 A winner is determined based on the current state of the board.
-If there are no more uncolored vertices, Player 1 wins.
-Otherwise, Player 2 wins.
+- If there are no more uncolored vertices, Player 1 wins.
+- Otherwise, Player 2 wins.

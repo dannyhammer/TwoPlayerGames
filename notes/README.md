@@ -12,5 +12,3 @@ Our current notes invovle:
 - Genetic Algorithm Analysis (Learning more about how to build Genetic Algoritms)
 - Research Background 
 - Research-Problems.ipynb (Place for us to track issues and note how we over came them)
-
-[back]("../README.md")

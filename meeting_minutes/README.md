@@ -18,4 +18,3 @@ a meeting or need clarity on what was discussed.
 - [ Aug. 15, 2021]("./fall_2021/aug_15.md")
 - [ Aug. 19, 2021]("")
 
-[Back]("README.md")

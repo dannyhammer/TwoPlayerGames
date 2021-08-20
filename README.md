@@ -18,7 +18,7 @@ Currently in the planning stages for scope of work in the Fall 2021 semester.
 
 ## Table of Contents
 
-- [Section One: Generic Games](#Section-One:-Generic-Two-Player-Games)
+- [Section One: Generic Games](#section-one:-generic-two-player-games)
     - [Example of Game Violation](#Example-of-a-Violation)
 - [Section Two: Two Player Graph Coloring](#Section-Two:-Two-Player-Graph-Coloring)
 - [Section Three: Creation of New Ideas](#Section-Three:-Creation-of-New-Ideas)

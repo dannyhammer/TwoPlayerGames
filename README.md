@@ -27,13 +27,13 @@ Currently in the planning stages for scope of work in the Fall 2021 semester.
 
 ## Meeting Minutes
 
-Pass meetings notes / minutes can be found [here]("./meeting_minutes/README.md")
+Pass meetings notes / minutes can be found [here]("meeting_minutes/README_2.md")
 
 
 ## Research Notes
 
 We didn't always keep digital notes, so as they are converted those will be added. New notes are added 
-in markdown files or jupyter notebooks [here]("./notes/README.md")
+in markdown files or jupyter notebooks [here]("notes/README_3.md")
 
 ## Section One: Generic Two Player Games
 

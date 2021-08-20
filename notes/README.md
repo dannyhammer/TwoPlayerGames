@@ -13,4 +13,4 @@ Our current notes invovle:
 - Research Background 
 - Research-Problems.ipynb (Place for us to track issues and note how we over came them)
 
-[back]("README.md")
+[back]("../README.md")

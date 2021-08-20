@@ -4,10 +4,12 @@ Faculty Advisor: Dr. Andrew Penland
 
 Authors: Nicholas O'Kelley, Daniel Hammer, Andrew Shelton
 
+----
+
 ## Introduction
 
 Our current goal is to continue exploring evolutionary game theory on Two Player Games. We are working to make our 
-current game code comply with Graph coloring games under the slightly revised rules described in [section two]("#-Section-Two:-Two-Player-Graph-Coloring"). 
+current game code comply with Graph coloring games under the slightly revised rules described in [section two](#Section-Two:-Two-Player-Graph-Coloring). 
 A more detailed write up of our current progress can be found in the `simple_games` directory in the Jupyter Notebook called `Overview.ipynb`.
 
 ## Current Scope
@@ -16,15 +18,17 @@ Currently in the planning stages for scope of work in the Fall 2021 semester.
 
 ## Table of Contents
 
-- [Section One: Generic Games](#-Section-One:-Generic-Two-Player-Games)
-    - [Example of Game Violation](#-Example-of-a-Violation)
-- [Section Two: Two Player Graph Coloring](#-Section-Two:-Two-Player-Graph-Coloring)
-- [Section Three: Creation of New Ideas](#-Creation-of-New-Ideas)
-- [Contribution Standards](#-Contribution-Standards)
+- [Section One: Generic Games](#Section-One:-Generic-Two-Player-Games)
+    - [Example of Game Violation](#Example-of-a-Violation)
+- [Section Two: Two Player Graph Coloring](#Section-Two:-Two-Player-Graph-Coloring)
+- [Section Three: Creation of New Ideas](#Section-Three:-Creation-of-New-Ideas)
+- [Contribution Standards](#Contribution-Standards)
+
 
 ## Meeting Minutes
 
 Pass meetings notes / minutes can be found [here]("./meeting_minutes/README.md")
+
 
 ## Research Notes
 
@@ -60,6 +64,8 @@ Returning to the Graph coloring problem, we began to implement the game followin
 4. *If either player can't move, player 2 wins.*
 
 This new rule set allows for the Competitive Graph Coloring Game to be added for analysis since there is a win condition for a stalemate.
+
+-----
 
 ## Section Three: Creation of New Ideas
 

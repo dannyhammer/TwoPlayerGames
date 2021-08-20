@@ -9,7 +9,7 @@ Authors: Nicholas O'Kelley, Daniel Hammer, Andrew Shelton
 ## Introduction
 
 Our current goal is to continue exploring evolutionary game theory on Two Player Games. We are working to make our 
-current game code comply with Graph coloring games under the slightly revised rules described in [section two](#Section-Two:-Two-Player-Graph-Coloring). 
+current game code comply with Graph coloring games under the slightly revised rules described in section two. 
 A more detailed write up of our current progress can be found in the `simple_games` directory in the Jupyter Notebook called `Overview.ipynb`.
 
 ## Current Scope

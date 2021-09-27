@@ -31,11 +31,7 @@ class Board(ABC):
     reset(self) : None
         Resets the board to its original state.
     """
-
-    # Yes, the constructor is marked as an abstract method
-    # This prevents people from directly instantiating a Board.
-    # Subclassing Board and using super().__init__() will work, though
-    @abstractmethod
+    
     def __init__(self, state: Any = None):
         """
         The board constructor initializes the game state and sets game bounds.

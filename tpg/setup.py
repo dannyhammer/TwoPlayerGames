@@ -20,7 +20,7 @@ setup(
     ],
     author_email=[
         "hammerapi@gmail.com",
-        "okelleydevelopment@gmail.com",
+        "okelleynp@gmail.com",
         "ashelt822@gmail.com"
     ],
     classifiers=[
@@ -34,6 +34,6 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
     ],
-    keywords=["python", "evolution", "evolutionary game theory", "two player games", "game"],
+    keywords=["python", "evolution", "evolutionary game theory", "two player games", "game theory"],
     packages=find_packages()
 )
